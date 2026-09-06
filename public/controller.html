@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Join — Algorithm Grand Prix</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/controller.css">
+</head>
+
+<body>
+
+    <main class="controller">
+
+        <header>
+            <p class="eyebrow">ALGORITHM GRAND PRIX</p>
+            <h1>JOIN THE RACE</h1>
+            <p class="subtitle">Choose your algorithm</p>
+        </header>
+
+        <section class="algorithm-selection">
+
+            <button class="algorithm-card" data-algorithm="BFS">
+                <span class="algorithm-name">BFS</span>
+                <span class="algorithm-description">
+                    Breadth First Search
+                </span>
+            </button>
+
+            <button class="algorithm-card" data-algorithm="DFS">
+                <span class="algorithm-name">DFS</span>
+                <span class="algorithm-description">
+                    Depth First Search
+                </span>
+            </button>
+
+            <button class="algorithm-card" data-algorithm="Dijkstra">
+                <span class="algorithm-name">DIJKSTRA</span>
+                <span class="algorithm-description">
+                    Weighted shortest path
+                </span>
+            </button>
+
+            <button class="algorithm-card" data-algorithm="A*">
+                <span class="algorithm-name">A*</span>
+                <span class="algorithm-description">
+                    Heuristic search
+                </span>
+            </button>
+
+        </section>
+
+        <section id="selected-section" class="hidden">
+
+            <div class="selected-algorithm">
+                <span>SELECTED</span>
+                <strong id="selected-algorithm">—</strong>
+            </div>
+
+            <div id="astar-control" class="hidden">
+
+                <label for="heuristic">
+                    A* HEURISTIC WEIGHT
+                </label>
+
+                <input
+                    id="heuristic"
+                    type="range"
+                    min="0"
+                    max="2"
+                    step="0.1"
+                    value="1"
+                >
+
+                <div class="range-value">
+                    <span>0.0</span>
+                    <strong id="heuristic-value">1.0</strong>
+                    <span>2.0</span>
+                </div>
+
+            </div>
+
+            <div class="maze-message">
+                <p>Maze controls will appear here.</p>
+                <small>Zoom and wall placement will be added next.</small>
+            </div>
+
+            <button id="ready-button" class="ready-button">
+                READY
+            </button>
+
+        </section>
+
+    </main>
+
+    <script src="js/controller.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,169 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: #000;
+    color: #fff;
+    font-family: "Inter", sans-serif;
+    min-height: 100vh;
+}
+
+.controller {
+    width: min(100%, 520px);
+    min-height: 100vh;
+    margin: auto;
+    padding: 28px 20px;
+}
+
+header {
+    margin-bottom: 32px;
+}
+
+.eyebrow {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: #777;
+    margin-bottom: 10px;
+}
+
+h1 {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 34px;
+    letter-spacing: -1px;
+}
+
+.subtitle {
+    color: #888;
+    margin-top: 8px;
+}
+
+.algorithm-selection {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.algorithm-card {
+    width: 100%;
+    padding: 22px;
+    background: #0a0a0a;
+    border: 1px solid #333;
+    color: #fff;
+    text-align: left;
+    cursor: pointer;
+    transition: border-color 0.15s ease;
+}
+
+.algorithm-card:hover,
+.algorithm-card.selected {
+    border-color: #fff;
+}
+
+.algorithm-name {
+    display: block;
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 21px;
+    font-weight: 600;
+}
+
+.algorithm-description {
+    display: block;
+    color: #777;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.hidden {
+    display: none;
+}
+
+#selected-section {
+    margin-top: 28px;
+}
+
+.selected-algorithm {
+    border-top: 1px solid #333;
+    border-bottom: 1px solid #333;
+    padding: 18px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.selected-algorithm span {
+    color: #777;
+    font-size: 11px;
+    letter-spacing: 1px;
+}
+
+.selected-algorithm strong {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 20px;
+}
+
+#astar-control {
+    padding: 24px 0;
+}
+
+#astar-control label {
+    display: block;
+    font-size: 11px;
+    color: #888;
+    letter-spacing: 1px;
+    margin-bottom: 15px;
+}
+
+#heuristic {
+    width: 100%;
+    accent-color: #fff;
+}
+
+.range-value {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+    color: #777;
+    font-size: 11px;
+}
+
+.range-value strong {
+    color: #fff;
+}
+
+.maze-message {
+    border: 1px dashed #333;
+    padding: 24px;
+    margin-top: 8px;
+    text-align: center;
+}
+
+.maze-message p {
+    font-size: 14px;
+}
+
+.maze-message small {
+    display: block;
+    color: #666;
+    margin-top: 7px;
+}
+
+.ready-button {
+    width: 100%;
+    margin-top: 16px;
+    padding: 18px;
+    border: none;
+    background: #fff;
+    color: #000;
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.ready-button:active {
+    transform: scale(0.99);
+}
