@@ -1,4 +1,26 @@
-const socket = io();
+const socket = io({
+    query: {
+        role: "screen"
+    }
+});
+
+// ========================================
+// MAZE STATE
+// ========================================
+
+let currentMaze = null;
+let currentMap = null;
+
+
+// ========================================
+// CANVAS
+// ========================================
+
+const canvas =
+    document.getElementById("maze-canvas");
+
+const ctx =
+    canvas.getContext("2d");
 
 
 // ========================================
@@ -12,6 +34,11 @@ socket.on("connect", () => {
         socket.id
     );
 
+
+    // Ask server for the current maze.
+
+    socket.emit("request_maze");
+
 });
 
 
@@ -19,82 +46,221 @@ socket.on("connect", () => {
 // PLAYER UPDATES
 // ========================================
 
-socket.on("players_updated", (players) => {
+socket.on(
+    "players_updated",
+    (players) => {
 
-    console.log(
-        "Players updated:",
-        players
-    );
+        console.log(
+            "Players updated:",
+            players
+        );
 
-    // Reset all cards
-    document.querySelectorAll(".player-card").forEach((card) => {
-
-        const status = card.querySelector("p");
-
-        status.textContent = "WAITING";
-
-    });
-
-
-    // Update connected players
-    players.forEach((player) => {
 
         const cards =
-            document.querySelectorAll(".player-card");
-
-        if (
-            player.number < 1 ||
-            player.number > 4
-        ) {
-            return;
-        }
-
-        const card =
-            cards[player.number - 1];
-
-        if (!card) {
-            return;
-        }
-
-        const status =
-            card.querySelector("p");
+            document.querySelectorAll(
+                ".player-card"
+            );
 
 
-        if (player.algorithm) {
+        // Reset cards
 
-            if (player.ready) {
+        cards.forEach(
+            (card) => {
 
-                status.textContent =
-                    `PLAYER ${player.number} • READY`;
+                const status =
+                    card.querySelector("p");
 
-            } else {
+                if (status) {
 
-                status.textContent =
-                    `PLAYER ${player.number} • SELECTED ${player.algorithm}`;
+                    status.textContent =
+                        "WAITING";
+
+                }
 
             }
+        );
 
-        } else {
 
-            status.textContent =
-                `PLAYER ${player.number} • CHOOSING`;
+        // Update connected players
+
+        players.forEach(
+            (player) => {
+
+                if (
+                    player.number < 1 ||
+                    player.number > 4
+                ) {
+
+                    return;
+
+                }
+
+
+                const card =
+                    cards[player.number - 1];
+
+
+                if (!card) {
+
+                    return;
+
+                }
+
+
+                const status =
+                    card.querySelector("p");
+
+
+                if (!status) {
+
+                    return;
+
+                }
+
+
+                if (player.algorithm) {
+
+                    if (player.ready) {
+
+                        status.textContent =
+                            `PLAYER ${player.number} • READY`;
+
+                    } else {
+
+                        status.textContent =
+                            `PLAYER ${player.number} • SELECTED ${player.algorithm}`;
+
+                    }
+
+                } else {
+
+                    status.textContent =
+                        `PLAYER ${player.number} • CHOOSING`;
+
+                }
+
+            }
+        );
+
+    }
+);
+
+
+// ========================================
+// SERVER SENT CURRENT MAZE
+// ========================================
+
+socket.on(
+    "maze_selected",
+    (mazeMap) => {
+
+        if (!mazeMap) {
+
+            return;
 
         }
 
-    });
 
-});
+        currentMap =
+            mazeMap;
+
+
+        console.log(
+            `Maze received by screen: ${mazeMap.id} - ${mazeMap.name}`
+        );
+
+
+        console.log(
+            `Seed: ${mazeMap.seed}`
+        );
+
+
+        currentMaze =
+            generateMaze(
+                MAZE_SIZE,
+                mazeMap.seed
+            );
+
+
+        console.log(
+            "Size:",
+            `${MAZE_SIZE} × ${MAZE_SIZE}`
+        );
+
+
+        drawMaze(
+            currentMaze
+        );
+
+    }
+);
 
 
 // ========================================
-// MAZE CANVAS
+// SERVER SAYS NO MAZE EXISTS
 // ========================================
 
-const canvas =
-    document.getElementById("maze-canvas");
+socket.on(
+    "select_first_maze",
+    () => {
 
-const ctx =
-    canvas.getContext("2d");
+        console.log(
+            "No maze exists. Screen selecting first maze..."
+        );
+
+
+        loadAndDrawRandomMaze();
+
+    }
+);
+
+
+// ========================================
+// SELECT FIRST RANDOM MAZE
+// ========================================
+
+function loadAndDrawRandomMaze() {
+
+    currentMap =
+        getRandomMazeMap();
+
+
+    currentMaze =
+        generateMaze(
+            MAZE_SIZE,
+            currentMap.seed
+        );
+
+
+    console.log(
+        `Selected Maze ${currentMap.id}: ${currentMap.name}`
+    );
+
+
+    console.log(
+        `Seed: ${currentMap.seed}`
+    );
+
+
+    console.log(
+        "Size:",
+        `${MAZE_SIZE} × ${MAZE_SIZE}`
+    );
+
+
+    // Tell server which maze is active.
+
+    socket.emit(
+        "maze_selected",
+        currentMap
+    );
+
+
+    drawMaze(
+        currentMaze
+    );
+
+}
 
 
 // ========================================
@@ -104,25 +270,45 @@ const ctx =
 function drawMaze(maze) {
 
     if (!maze) {
+
         return;
+
     }
 
-    const rows = maze.length;
-    const cols = maze[0].length;
+
+    const rows =
+        maze.length;
 
 
-    // Get actual displayed size
+    const cols =
+        maze[0].length;
+
+
     const container =
-        document.querySelector(".maze-container");
+        document.querySelector(
+            ".maze-container"
+        );
+
+
+    if (!container) {
+
+        console.error(
+            "Maze container not found."
+        );
+
+        return;
+
+    }
+
 
     const containerWidth =
         container.clientWidth;
+
 
     const containerHeight =
         container.clientHeight;
 
 
-    // Make maze fit inside container
     const cellSize =
         Math.min(
             containerWidth / cols,
@@ -133,22 +319,26 @@ function drawMaze(maze) {
     const mazeWidth =
         cellSize * cols;
 
+
     const mazeHeight =
         cellSize * rows;
 
 
-    // High resolution canvas
     const devicePixelRatio =
         window.devicePixelRatio || 1;
+
 
     canvas.width =
         mazeWidth * devicePixelRatio;
 
+
     canvas.height =
         mazeHeight * devicePixelRatio;
 
+
     canvas.style.width =
         `${mazeWidth}px`;
+
 
     canvas.style.height =
         `${mazeHeight}px`;
@@ -164,8 +354,13 @@ function drawMaze(maze) {
     );
 
 
-    // Background
-    ctx.fillStyle = "#111111";
+    // ====================================
+    // BACKGROUND
+    // ====================================
+
+    ctx.fillStyle =
+        "#111111";
+
 
     ctx.fillRect(
         0,
@@ -176,25 +371,38 @@ function drawMaze(maze) {
 
 
     // ====================================
-    // DRAW CELLS
+    // CELLS
     // ====================================
 
-    for (let row = 0; row < rows; row++) {
+    for (
+        let row = 0;
+        row < rows;
+        row++
+    ) {
 
-        for (let col = 0; col < cols; col++) {
+        for (
+            let col = 0;
+            col < cols;
+            col++
+        ) {
 
             const x =
                 col * cellSize;
+
 
             const y =
                 row * cellSize;
 
 
-            if (maze[row][col] === 1) {
+            // WALL
 
-                // WALL
+            if (
+                maze[row][col] === 1
+            ) {
+
                 ctx.fillStyle =
                     "#6B4423";
+
 
                 ctx.fillRect(
                     x,
@@ -204,15 +412,18 @@ function drawMaze(maze) {
                 );
 
 
-                // Brick-like line
+                // Brick lines
+
                 ctx.strokeStyle =
                     "#3E2817";
+
 
                 ctx.lineWidth =
                     Math.max(
                         1,
                         cellSize * 0.08
                     );
+
 
                 ctx.strokeRect(
                     x,
@@ -221,11 +432,16 @@ function drawMaze(maze) {
                     cellSize
                 );
 
-            } else {
+            }
 
-                // PATH
+
+            // OPEN PATH
+
+            else {
+
                 ctx.fillStyle =
                     "#111111";
+
 
                 ctx.fillRect(
                     x,
@@ -270,7 +486,7 @@ function drawMaze(maze) {
 
 
 // ========================================
-// DRAW START / GOAL
+// DRAW START / GOAL MARKER
 // ========================================
 
 function drawMarker(
@@ -285,12 +501,14 @@ function drawMarker(
         col * cellSize +
         cellSize / 2;
 
+
     const centerY =
         row * cellSize +
         cellSize / 2;
 
 
     ctx.beginPath();
+
 
     ctx.arc(
         centerX,
@@ -300,19 +518,29 @@ function drawMarker(
         Math.PI * 2
     );
 
-    ctx.fillStyle = color;
+
+    ctx.fillStyle =
+        color;
+
 
     ctx.fill();
 
 
-    ctx.fillStyle = "#000000";
+    ctx.fillStyle =
+        "#000000";
+
 
     ctx.font =
         `bold ${cellSize * 0.35}px Arial`;
 
-    ctx.textAlign = "center";
 
-    ctx.textBaseline = "middle";
+    ctx.textAlign =
+        "center";
+
+
+    ctx.textBaseline =
+        "middle";
+
 
     ctx.fillText(
         text,
@@ -324,43 +552,7 @@ function drawMarker(
 
 
 // ========================================
-// LOAD RANDOM MAZE
-// ========================================
-
-function loadAndDrawRandomMaze() {
-
-    currentMap =
-        getRandomMazeMap();
-
-
-    currentMaze =
-        generateMaze(
-            MAZE_SIZE,
-            currentMap.seed
-        );
-
-
-    console.log(
-        `Selected Maze ${currentMap.id}: ${currentMap.name}`
-    );
-
-    console.log(
-        `Seed: ${currentMap.seed}`
-    );
-
-    console.log(
-        "Size:",
-        `${MAZE_SIZE} × ${MAZE_SIZE}`
-    );
-
-
-    drawMaze(currentMaze);
-
-}
-
-
-// ========================================
-// REDRAW WHEN WINDOW CHANGES
+// RESIZE
 // ========================================
 
 window.addEventListener(
@@ -368,15 +560,12 @@ window.addEventListener(
     () => {
 
         if (currentMaze) {
-            drawMaze(currentMaze);
+
+            drawMaze(
+                currentMaze
+            );
+
         }
 
     }
 );
-
-
-// ========================================
-// START
-// ========================================
-
-loadAndDrawRandomMaze();
