@@ -6,10 +6,16 @@
 
     <title>Algorithm Grand Prix</title>
 
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Screen CSS -->
     <link rel="stylesheet" href="css/screen.css">
 </head>
 
@@ -17,7 +23,9 @@
 
     <main class="screen">
 
+        <!-- HEADER -->
         <header class="top-bar">
+
             <div>
                 <h1>ALGORITHM GRAND PRIX</h1>
                 <p>PATHFINDING ALGORITHM RACE</p>
@@ -26,55 +34,81 @@
             <div class="round">
                 ROUND <span>01</span>
             </div>
+
         </header>
 
+
+        <!-- MAIN GAME AREA -->
         <section class="game-area">
 
+            <!-- MAZE -->
             <div class="maze-container">
+
                 <div class="maze-placeholder">
                     MAZE
                 </div>
+
             </div>
 
+
+            <!-- PLAYERS -->
             <aside class="players">
 
                 <div class="player-card">
+
                     <span class="player-dot bfs"></span>
+
                     <div>
                         <h2>BFS</h2>
                         <p>WAITING</p>
                     </div>
+
                 </div>
 
+
                 <div class="player-card">
+
                     <span class="player-dot dfs"></span>
+
                     <div>
                         <h2>DFS</h2>
                         <p>WAITING</p>
                     </div>
+
                 </div>
 
+
                 <div class="player-card">
+
                     <span class="player-dot dijkstra"></span>
+
                     <div>
                         <h2>DIJKSTRA</h2>
                         <p>WAITING</p>
                     </div>
+
                 </div>
 
+
                 <div class="player-card">
+
                     <span class="player-dot astar"></span>
+
                     <div>
                         <h2>A*</h2>
                         <p>WAITING</p>
                     </div>
+
                 </div>
 
             </aside>
 
         </section>
 
+
+        <!-- BOTTOM -->
         <footer class="bottom-bar">
+
             <div>
                 <strong>SCAN TO JOIN</strong>
                 <span>4 PLAYERS MAX</span>
@@ -83,9 +117,17 @@
             <div class="qr-placeholder">
                 QR
             </div>
+
         </footer>
 
     </main>
+
+
+    <!-- Socket.io -->
+    <script src="/socket.io/socket.io.js"></script>
+
+    <!-- Screen JavaScript -->
+    <script src="js/screen.js"></script>
 
 </body>
 </html>
