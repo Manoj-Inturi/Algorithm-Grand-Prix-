@@ -1,33 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta
         name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+        content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Join — Algorithm Grand Prix</title>
-
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <title>Algorithm Grand Prix</title>
 
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
         rel="stylesheet"
+        href="css/controller.css"
     >
 
-    <!-- Controller CSS -->
-    <link rel="stylesheet" href="css/controller.css">
 </head>
+
 
 <body>
 
     <main class="controller">
 
-        <!-- HEADER -->
-        <header>
+
+        <!-- =================================
+             HEADER
+        ================================== -->
+
+        <header class="header">
 
             <p class="eyebrow">
                 ALGORITHM GRAND PRIX
@@ -38,101 +40,204 @@
             </h1>
 
             <p class="subtitle">
-                Choose your algorithm
+                Connecting to race...
             </p>
 
         </header>
 
 
-        <!-- ALGORITHM SELECTION -->
-        <section class="algorithm-selection">
 
-            <button
-                class="algorithm-card"
-                data-algorithm="BFS"
-            >
-                <span class="algorithm-name">
-                    BFS
-                </span>
+        <!-- =================================
+             ALGORITHM SELECTION
+        ================================== -->
 
-                <span class="algorithm-description">
-                    Breadth First Search
-                </span>
-            </button>
+        <section class="algorithm-section">
 
-
-            <button
-                class="algorithm-card"
-                data-algorithm="DFS"
-            >
-                <span class="algorithm-name">
-                    DFS
-                </span>
-
-                <span class="algorithm-description">
-                    Depth First Search
-                </span>
-            </button>
-
-
-            <button
-                class="algorithm-card"
-                data-algorithm="Dijkstra"
-            >
-                <span class="algorithm-name">
-                    DIJKSTRA
-                </span>
-
-                <span class="algorithm-description">
-                    Weighted shortest path
-                </span>
-            </button>
-
-
-            <button
-                class="algorithm-card"
-                data-algorithm="A*"
-            >
-                <span class="algorithm-name">
-                    A*
-                </span>
-
-                <span class="algorithm-description">
-                    Heuristic search
-                </span>
-            </button>
-
-        </section>
-
-
-        <!-- SELECTED ALGORITHM -->
-        <section
-            id="selected-section"
-            class="hidden"
-        >
-
-            <div class="selected-algorithm">
+            <div class="section-label">
 
                 <span>
-                    SELECTED
+                    CHOOSE ALGORITHM
                 </span>
 
-                <strong id="selected-algorithm">
-                    —
-                </strong>
+                <span>
+                    01
+                </span>
 
             </div>
 
 
-            <!-- A* CONTROL -->
-            <div
-                id="astar-control"
-                class="hidden"
-            >
+            <div class="algorithm-grid">
 
-                <label for="heuristic">
+
+                <!-- BFS -->
+
+                <button
+                    class="algorithm-card"
+                    data-algorithm="BFS"
+                    type="button"
+                >
+
+                    <span
+                        class="algorithm-dot bfs"
+                    ></span>
+
+
+                    <span class="algorithm-content">
+
+                        <strong>
+                            BFS
+                        </strong>
+
+                        <small>
+                            BREADTH-FIRST SEARCH
+                        </small>
+
+                    </span>
+
+                </button>
+
+
+
+                <!-- DFS -->
+
+                <button
+                    class="algorithm-card"
+                    data-algorithm="DFS"
+                    type="button"
+                >
+
+                    <span
+                        class="algorithm-dot dfs"
+                    ></span>
+
+
+                    <span class="algorithm-content">
+
+                        <strong>
+                            DFS
+                        </strong>
+
+                        <small>
+                            DEPTH-FIRST SEARCH
+                        </small>
+
+                    </span>
+
+                </button>
+
+
+
+                <!-- DIJKSTRA -->
+
+                <button
+                    class="algorithm-card"
+                    data-algorithm="Dijkstra"
+                    type="button"
+                >
+
+                    <span
+                        class="algorithm-dot dijkstra"
+                    ></span>
+
+
+                    <span class="algorithm-content">
+
+                        <strong>
+                            DIJKSTRA
+                        </strong>
+
+                        <small>
+                            WEIGHTED SHORTEST PATH
+                        </small>
+
+                    </span>
+
+                </button>
+
+
+
+                <!-- A* -->
+
+                <button
+                    class="algorithm-card"
+                    data-algorithm="A*"
+                    type="button"
+                >
+
+                    <span
+                        class="algorithm-dot astar"
+                    ></span>
+
+
+                    <span class="algorithm-content">
+
+                        <strong>
+                            A*
+                        </strong>
+
+                        <small>
+                            HEURISTIC SEARCH
+                        </small>
+
+                    </span>
+
+                </button>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================
+             SELECTED ALGORITHM
+        ================================== -->
+
+        <section
+            id="selected-section"
+            class="selected-section hidden"
+        >
+
+            <div class="selected-box">
+
+                <p>
+                    SELECTED ALGORITHM
+                </p>
+
+                <h2 id="selected-algorithm">
+                    —
+                </h2>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================
+             A* HEURISTIC
+        ================================== -->
+
+        <section
+            id="astar-control"
+            class="control-section hidden"
+        >
+
+            <div class="section-label">
+
+                <span>
                     A* HEURISTIC WEIGHT
-                </label>
+                </span>
+
+                <span id="heuristic-value">
+                    1.0
+                </span>
+
+            </div>
+
+
+            <div class="slider-container">
 
                 <input
                     id="heuristic"
@@ -143,53 +248,120 @@
                     value="1"
                 >
 
-                <div class="range-value">
 
-                    <span>0.0</span>
+                <div class="slider-labels">
 
-                    <strong id="heuristic-value">
-                        1.0
-                    </strong>
+                    <span>
+                        0
+                    </span>
 
-                    <span>2.0</span>
+                    <span>
+                        1
+                    </span>
+
+                    <span>
+                        2
+                    </span>
 
                 </div>
 
             </div>
 
+        </section>
 
-            <!-- MAZE MESSAGE -->
-            <div class="maze-message">
 
-                <p>
-                    Maze controls will appear here.
-                </p>
 
-                <small>
-                    Zoom and wall placement will be added next.
-                </small>
+        <!-- =================================
+             CURRENT MAZE
+        ================================== -->
+
+        <section class="maze-controls">
+
+            <div class="section-label">
+
+                <span>
+                    CURRENT MAZE
+                </span>
+
+                <span id="maze-status">
+                    WAITING
+                </span>
 
             </div>
 
 
-            <!-- READY -->
+            <div class="controller-maze">
+
+                <canvas
+                    id="controller-maze-canvas"
+                ></canvas>
+
+            </div>
+
+
+            <p
+                class="maze-info"
+                id="maze-info"
+            >
+                Waiting for the main screen to
+                select a maze.
+            </p>
+
+        </section>
+
+
+
+        <!-- =================================
+             READY
+        ================================== -->
+
+        <section class="ready-section">
+
             <button
                 id="ready-button"
                 class="ready-button"
+                type="button"
             >
                 READY
             </button>
 
+
+            <p>
+                Select an algorithm before confirming.
+            </p>
+
         </section>
+
 
     </main>
 
 
-    <!-- Socket.io -->
+
+    <!-- =================================
+         SOCKET.IO
+    ================================== -->
+
     <script src="/socket.io/socket.io.js"></script>
 
-    <!-- Controller JavaScript -->
+
+
+    <!-- =================================
+         MAZE MAPS
+    ================================== -->
+
+    <script src="js/maze/maps.js"></script>
+
+    <script src="js/maze/generator.js"></script>
+
+
+
+    <!-- =================================
+         CONTROLLER JAVASCRIPT
+    ================================== -->
+
     <script src="js/controller.js"></script>
 
+
 </body>
+
 </html>

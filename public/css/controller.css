@@ -1,169 +1,564 @@
+/* ========================================
+   RESET
+======================================== */
+
 * {
     box-sizing: border-box;
+
     margin: 0;
     padding: 0;
 }
 
+
+/* ========================================
+   PAGE
+======================================== */
+
+html,
 body {
-    background: #000;
-    color: #fff;
-    font-family: "Inter", sans-serif;
-    min-height: 100vh;
+    width: 100%;
+    min-height: 100%;
+
+    background: #000000;
+
+    color: #ffffff;
+
+    font-family:
+        Inter,
+        Arial,
+        sans-serif;
 }
+
+
+body {
+    min-height: 100vh;
+
+    overflow-x: hidden;
+}
+
+
+/* ========================================
+   CONTROLLER
+======================================== */
 
 .controller {
-    width: min(100%, 520px);
-    min-height: 100vh;
-    margin: auto;
-    padding: 28px 20px;
+    width: 100%;
+
+    max-width: 650px;
+
+    margin: 0 auto;
+
+    padding: 24px 18px 40px;
 }
 
-header {
-    margin-bottom: 32px;
+
+/* ========================================
+   HEADER
+======================================== */
+
+.header {
+    padding-bottom: 24px;
+
+    border-bottom: 1px solid #252525;
 }
+
 
 .eyebrow {
-    font-family: "Space Grotesk", sans-serif;
-    font-size: 11px;
-    letter-spacing: 2px;
-    color: #777;
-    margin-bottom: 10px;
+    font-size: 9px;
+
+    letter-spacing: 3px;
+
+    color: #777777;
+
+    margin-bottom: 8px;
 }
 
-h1 {
-    font-family: "Space Grotesk", sans-serif;
-    font-size: 34px;
+
+.header h1 {
+    font-family:
+        "Space Grotesk",
+        Inter,
+        Arial,
+        sans-serif;
+
+    font-size: 30px;
+
+    line-height: 1;
+
     letter-spacing: -1px;
 }
 
+
 .subtitle {
-    color: #888;
-    margin-top: 8px;
+    margin-top: 10px;
+
+    font-size: 11px;
+
+    letter-spacing: 1px;
+
+    color: #777777;
 }
 
-.algorithm-selection {
+
+/* ========================================
+   SECTION LABEL
+======================================== */
+
+.section-label {
     display: flex;
-    flex-direction: column;
-    gap: 12px;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 12px;
+
+    font-size: 9px;
+
+    letter-spacing: 2px;
+
+    color: #777777;
 }
+
+
+/* ========================================
+   ALGORITHM SECTION
+======================================== */
+
+.algorithm-section {
+    padding-top: 24px;
+}
+
+
+.algorithm-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 10px;
+}
+
+
+/* ========================================
+   ALGORITHM CARD
+======================================== */
 
 .algorithm-card {
     width: 100%;
-    padding: 22px;
-    background: #0a0a0a;
-    border: 1px solid #333;
-    color: #fff;
-    text-align: left;
-    cursor: pointer;
-    transition: border-color 0.15s ease;
-}
 
-.algorithm-card:hover,
-.algorithm-card.selected {
-    border-color: #fff;
-}
+    min-height: 92px;
 
-.algorithm-name {
-    display: block;
-    font-family: "Space Grotesk", sans-serif;
-    font-size: 21px;
-    font-weight: 600;
-}
+    padding: 16px;
 
-.algorithm-description {
-    display: block;
-    color: #777;
-    font-size: 12px;
-    margin-top: 5px;
-}
-
-.hidden {
-    display: none;
-}
-
-#selected-section {
-    margin-top: 28px;
-}
-
-.selected-algorithm {
-    border-top: 1px solid #333;
-    border-bottom: 1px solid #333;
-    padding: 18px 0;
     display: flex;
-    justify-content: space-between;
+
     align-items: center;
+
+    gap: 12px;
+
+    text-align: left;
+
+    background: #050505;
+
+    color: #ffffff;
+
+    border: 1px solid #292929;
+
+    cursor: pointer;
+
+    transition:
+        border-color 0.15s ease,
+        background 0.15s ease,
+        transform 0.1s ease;
 }
 
-.selected-algorithm span {
-    color: #777;
-    font-size: 11px;
+
+.algorithm-card:hover {
+    border-color: #555555;
+
+    background: #0b0b0b;
+}
+
+
+.algorithm-card:active {
+    transform: scale(0.98);
+}
+
+
+.algorithm-card.selected {
+    border-color: #ffffff;
+
+    background: #111111;
+}
+
+
+/* ========================================
+   ALGORITHM DOTS
+======================================== */
+
+.algorithm-dot {
+    width: 13px;
+    height: 13px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+}
+
+
+.algorithm-dot.bfs {
+    background: #EF4056;
+}
+
+
+.algorithm-dot.dfs {
+    background: #4B8DB8;
+}
+
+
+.algorithm-dot.dijkstra {
+    background: #28A69A;
+}
+
+
+.algorithm-dot.astar {
+    background: #9B5DE5;
+}
+
+
+/* ========================================
+   ALGORITHM TEXT
+======================================== */
+
+.algorithm-content {
+    display: flex;
+
+    flex-direction: column;
+
+    min-width: 0;
+}
+
+
+.algorithm-content strong {
+    font-family:
+        "Space Grotesk",
+        Inter,
+        Arial,
+        sans-serif;
+
+    font-size: 16px;
+
+    letter-spacing: 0;
+}
+
+
+.algorithm-content small {
+    margin-top: 5px;
+
+    font-size: 7px;
+
     letter-spacing: 1px;
+
+    color: #666666;
 }
 
-.selected-algorithm strong {
-    font-family: "Space Grotesk", sans-serif;
-    font-size: 20px;
+
+/* ========================================
+   SELECTED ALGORITHM
+======================================== */
+
+.selected-section {
+    padding-top: 16px;
 }
 
-#astar-control {
-    padding: 24px 0;
+
+.selected-box {
+    padding: 16px;
+
+    background: #050505;
+
+    border: 1px solid #292929;
 }
 
-#astar-control label {
-    display: block;
-    font-size: 11px;
-    color: #888;
-    letter-spacing: 1px;
-    margin-bottom: 15px;
+
+.selected-box p {
+    font-size: 8px;
+
+    letter-spacing: 2px;
+
+    color: #666666;
 }
+
+
+.selected-box h2 {
+    margin-top: 7px;
+
+    font-family:
+        "Space Grotesk",
+        Inter,
+        Arial,
+        sans-serif;
+
+    font-size: 22px;
+}
+
+
+/* ========================================
+   A* CONTROL
+======================================== */
+
+.control-section {
+    padding-top: 18px;
+}
+
+
+.slider-container {
+    padding: 16px;
+
+    background: #050505;
+
+    border: 1px solid #292929;
+}
+
 
 #heuristic {
     width: 100%;
-    accent-color: #fff;
+
+    height: 4px;
+
+    appearance: none;
+
+    background: #333333;
+
+    outline: none;
 }
 
-.range-value {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 8px;
-    color: #777;
-    font-size: 11px;
-}
 
-.range-value strong {
-    color: #fff;
-}
+#heuristic::-webkit-slider-thumb {
+    appearance: none;
 
-.maze-message {
-    border: 1px dashed #333;
-    padding: 24px;
-    margin-top: 8px;
-    text-align: center;
-}
+    width: 18px;
+    height: 18px;
 
-.maze-message p {
-    font-size: 14px;
-}
+    border-radius: 50%;
 
-.maze-message small {
-    display: block;
-    color: #666;
-    margin-top: 7px;
-}
+    background: #9B5DE5;
 
-.ready-button {
-    width: 100%;
-    margin-top: 16px;
-    padding: 18px;
-    border: none;
-    background: #fff;
-    color: #000;
-    font-family: "Space Grotesk", sans-serif;
-    font-size: 16px;
-    font-weight: 700;
     cursor: pointer;
 }
 
-.ready-button:active {
-    transform: scale(0.99);
+
+#heuristic::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: #9B5DE5;
+
+    cursor: pointer;
+}
+
+
+.slider-labels {
+    display: flex;
+
+    justify-content: space-between;
+
+    margin-top: 9px;
+
+    font-size: 8px;
+
+    color: #666666;
+}
+
+
+/* ========================================
+   MAZE
+======================================== */
+
+.maze-controls {
+    padding-top: 24px;
+}
+
+
+.controller-maze {
+    width: 100%;
+
+    aspect-ratio: 1 / 1;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    overflow: hidden;
+
+    background: #111111;
+
+    border: 1px solid #292929;
+
+    position: relative;
+}
+
+
+#controller-maze-canvas {
+    display: block;
+
+    max-width: 100%;
+
+    max-height: 100%;
+}
+
+
+.maze-info {
+    margin-top: 9px;
+
+    text-align: center;
+
+    font-size: 9px;
+
+    letter-spacing: 1px;
+
+    color: #666666;
+}
+
+
+#maze-status {
+    color: #777777;
+}
+
+
+/* ========================================
+   READY
+======================================== */
+
+.ready-section {
+    padding-top: 24px;
+}
+
+
+.ready-button {
+    width: 100%;
+
+    min-height: 58px;
+
+    border: 1px solid #ffffff;
+
+    background: #ffffff;
+
+    color: #000000;
+
+    font-family:
+        "Space Grotesk",
+        Inter,
+        Arial,
+        sans-serif;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    letter-spacing: 2px;
+
+    cursor: pointer;
+
+    transition:
+        background 0.15s ease,
+        color 0.15s ease;
+}
+
+
+.ready-button:hover {
+    background: #000000;
+
+    color: #ffffff;
+}
+
+
+.ready-button:disabled {
+    background: #222222;
+
+    border-color: #444444;
+
+    color: #777777;
+
+    cursor: default;
+}
+
+
+.ready-section p {
+    margin-top: 9px;
+
+    text-align: center;
+
+    font-size: 8px;
+
+    color: #555555;
+
+    letter-spacing: 0.5px;
+}
+
+
+/* ========================================
+   UTILITY
+======================================== */
+
+.hidden {
+    display: none !important;
+}
+
+
+/* ========================================
+   SMALL PHONES
+======================================== */
+
+@media (max-width: 420px) {
+
+    .controller {
+        padding:
+            20px
+            14px
+            32px;
+    }
+
+
+    .header h1 {
+        font-size: 26px;
+    }
+
+
+    .algorithm-card {
+        min-height: 82px;
+
+        padding: 13px;
+    }
+
+
+    .algorithm-content strong {
+        font-size: 14px;
+    }
+
+
+    .algorithm-content small {
+        font-size: 6px;
+    }
+
+}
+
+
+/* ========================================
+   VERY SMALL PHONES
+======================================== */
+
+@media (max-width: 340px) {
+
+    .algorithm-grid {
+        grid-template-columns: 1fr;
+    }
+
 }
