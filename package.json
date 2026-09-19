@@ -1,0 +1,35 @@
+{
+    "name": "algorithm-grand-prix",
+    "version": "1.0.0",
+    "description": "Algorithm Grand Prix \u2014 a four-player multiplayer pathfinding race with a Vercel-safe shared-state architecture.",
+    "main": "index.js",
+    "scripts": {
+        "start": "node server.js",
+        "test": "node tests/algorithms.test.js && node tests/server-safety.test.js && node tests/network-round.test.js && node tests/deployment.test.js && node tests/vercel-config.test.js && node tests/runtime-local.test.js",
+        "check": "node tests/algorithms.test.js && node tests/server-safety.test.js && node tests/network-round.test.js && node tests/deployment.test.js && node tests/vercel-config.test.js && node tests/runtime-local.test.js"
+    },
+    "keywords": [
+        "algorithm visualization",
+        "pathfinding",
+        "BFS",
+        "DFS",
+        "Dijkstra",
+        "A*",
+        "multiplayer",
+        "maze",
+        "real-time",
+        "Vercel",
+        "Upstash Redis",
+        "education"
+    ],
+    "author": "",
+    "license": "ISC",
+    "type": "commonjs",
+    "dependencies": {
+        "express": "^5.2.1",
+        "qrcode": "^1.5.4"
+    },
+    "engines": {
+        "node": "24.x"
+    }
+}

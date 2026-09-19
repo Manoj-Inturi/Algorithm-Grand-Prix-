@@ -1,0 +1,17 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "rewrites": [
+    { "source": "/screen", "destination": "/screen.html" },
+    { "source": "/screen/", "destination": "/screen.html" },
+    { "source": "/controller", "destination": "/controller.html" },
+    { "source": "/controller/", "destination": "/controller.html" }
+  ],
+  "headers": [
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-store, max-age=0" }
+      ]
+    }
+  ]
+}
