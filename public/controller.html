@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta name="robots" content="noindex,nofollow">
+    <meta name="description" content="Join the Algorithm Grand Prix from your phone, choose an algorithm, modify the maze and make your race prediction.">
+
+    <title>Join Algorithm Grand Prix | Player Controller</title>
+
+    <link
+        rel="stylesheet"
+        href="/css/controller.css"
+    >
+
+</head>
+
+
+<body>
+
+    <main class="controller">
+
+        <!-- ============================= -->
+        <!-- HEADER -->
+        <!-- ============================= -->
+
+        <header class="controller-header">
+
+            <p class="eyebrow">
+                ALGORITHM GRAND PRIX
+            </p>
+
+            <h1>
+                JOIN THE RACE
+            </h1>
+
+            <p
+                class="subtitle"
+                id="player-subtitle"
+            >
+                Connecting...
+            </p>
+
+        </header>
+
+        <section class="controller-game-info" aria-label="Game information">
+            <div class="section-heading"><span>GAME INFO</span><span id="controller-round">01</span></div>
+            <div class="controller-info-grid">
+                <div><span>MAZE</span><strong id="controller-maze-name">WAITING</strong></div>
+                <div><span>SIZE</span><strong id="controller-maze-size">71 × 71</strong></div>
+                <div><span>OPEN CELLS</span><strong id="controller-open-cells">—</strong></div>
+                <div><span>CONNECTED</span><strong id="controller-player-count">0 / 4</strong></div>
+            </div>
+            <div class="controller-connected">
+                <div class="section-heading"><span>PLAYERS IN LOBBY</span><span>LIVE</span></div>
+                <div id="controller-players-list" class="controller-players-list"><span>Waiting for players.</span></div>
+            </div>
+        </section>
+
+
+        <section class="name-section">
+
+            <div class="section-heading">
+                <span>YOUR NAME</span>
+                <span id="name-state">REQUIRED</span>
+            </div>
+
+            <div class="name-row">
+                <input
+                    id="player-name"
+                    type="text"
+                    maxlength="20"
+                    autocomplete="off"
+                    placeholder="Enter your name"
+                >
+
+                <button id="save-name" type="button">CONTINUE</button>
+            </div>
+
+            <p id="name-message" class="name-message">Enter your name before choosing an algorithm.</p>
+
+        </section>
+
+
+        <!-- ============================= -->
+        <!-- ALGORITHM SELECTION -->
+        <!-- ============================= -->
+
+        <section class="algorithm-section">
+
+            <div class="section-heading">
+
+                <span>
+                    CHOOSE ALGORITHM
+                </span>
+
+                <span>
+                    01
+                </span>
+
+            </div>
+
+
+            <div class="algorithm-grid">
+
+                <!-- BFS -->
+
+                <button
+                    type="button"
+                    class="algorithm-card"
+                    data-algorithm="BFS"
+                    disabled
+                >
+
+                    <span class="algorithm-dot bfs"></span>
+
+                    <span class="algorithm-info">
+
+                        <strong>
+                            BFS
+                        </strong>
+
+                        <small>
+                            BREADTH-FIRST SEARCH
+                        </small>
+
+                    </span>
+
+                </button>
+
+
+                <!-- DFS -->
+
+                <button
+                    type="button"
+                    class="algorithm-card"
+                    data-algorithm="DFS"
+                    disabled
+                >
+
+                    <span class="algorithm-dot dfs"></span>
+
+                    <span class="algorithm-info">
+
+                        <strong>
+                            DFS
+                        </strong>
+
+                        <small>
+                            DEPTH-FIRST SEARCH
+                        </small>
+
+                    </span>
+
+                </button>
+
+
+                <!-- DIJKSTRA -->
+
+                <button
+                    type="button"
+                    class="algorithm-card"
+                    data-algorithm="DIJKSTRA"
+                    disabled
+                >
+
+                    <span class="algorithm-dot dijkstra"></span>
+
+                    <span class="algorithm-info">
+
+                        <strong>
+                            DIJKSTRA
+                        </strong>
+
+                        <small>
+                            WEIGHTED SHORTEST PATH
+                        </small>
+
+                    </span>
+
+                </button>
+
+
+                <!-- A STAR -->
+
+                <button
+                    type="button"
+                    class="algorithm-card"
+                    data-algorithm="A*"
+                    disabled
+                >
+
+                    <span class="algorithm-dot astar"></span>
+
+                    <span class="algorithm-info">
+
+                        <strong>
+                            A*
+                        </strong>
+
+                        <small>
+                            HEURISTIC SEARCH
+                        </small>
+
+                    </span>
+
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- ============================= -->
+        <!-- SELECTED ALGORITHM -->
+        <!-- ============================= -->
+
+        <section
+            id="selected-section"
+            class="selected-section hidden"
+        >
+
+            <p class="selected-label">
+                SELECTED ALGORITHM
+            </p>
+
+            <div
+                id="selected-algorithm"
+                class="selected-algorithm"
+            >
+                -
+            </div>
+            <p id="algorithm-hint" class="algorithm-hint">Choose an algorithm to see how it thinks.</p>
+
+        </section>
+
+
+        <!-- ============================= -->
+        <!-- A* HEURISTIC -->
+        <!-- ============================= -->
+
+        <section
+            id="astar-control"
+            class="control-section hidden"
+        >
+
+            <div class="section-heading">
+
+                <span>
+                    A* HEURISTIC WEIGHT
+                </span>
+
+                <span id="heuristic-value">
+                    1.0
+                </span>
+
+            </div>
+
+
+            <input
+                id="heuristic"
+                type="range"
+                min="0"
+                max="2"
+                step="0.1"
+                value="1"
+            >
+
+
+            <div class="range-labels">
+
+                <span>
+                    0.0
+                </span>
+
+                <span>
+                    2.0
+                </span>
+
+            </div>
+
+        </section>
+
+
+
+        <section id="prediction-section" class="prediction-section">
+            <div class="section-heading">
+                <span>MAKE A PREDICTION</span>
+                <span>02</span>
+            </div>
+            <p id="prediction-message" class="prediction-message">Predict the first finisher.</p>
+            <div class="prediction-grid">
+                <button type="button" class="prediction-button" data-prediction="BFS">BFS</button>
+                <button type="button" class="prediction-button" data-prediction="DFS">DFS</button>
+                <button type="button" class="prediction-button" data-prediction="DIJKSTRA">DIJKSTRA</button>
+                <button type="button" class="prediction-button" data-prediction="A*">A*</button>
+            </div>
+        </section>
+
+
+        <!-- ============================= -->
+        <!-- CURRENT MAZE -->
+        <!-- ============================= -->
+
+        <section class="maze-section">
+
+            <div class="section-heading">
+
+                <span>
+                    CURRENT MAZE
+                </span>
+
+                <span id="maze-name">
+                    WAITING
+                </span>
+
+            </div>
+
+
+            <div
+                id="maze-viewport"
+                class="maze-viewport"
+            >
+
+                <canvas
+                    id="controller-maze-canvas"
+                ></canvas>
+
+                <div
+                    id="maze-message"
+                    class="maze-message"
+                >
+                    Waiting for the main screen to select a maze.
+                </div>
+
+            </div>
+
+
+            <!-- ============================= -->
+            <!-- MAZE TOOLS -->
+            <!-- ============================= -->
+
+            <div class="maze-tools">
+
+                <div class="zoom-info">
+
+                    <span>
+                        ZOOM
+                    </span>
+
+                    <strong id="zoom-value">
+                        100%
+                    </strong>
+
+                </div>
+
+
+                <button
+                    id="reset-view"
+                    type="button"
+                >
+                    RESET VIEW
+                </button>
+
+            </div>
+
+
+            <div class="controller-maze-legend" aria-label="Maze legend">
+                <span><i class="legend-swatch open"></i>OPEN CELL</span>
+                <span><i class="legend-swatch wall"></i>WALL</span>
+                <span><i class="legend-swatch sand"></i>SAND</span>
+                <span><i class="legend-swatch yours"></i>YOUR PLACEMENT</span>
+            </div>
+            <p class="maze-help">
+                PINCH TO ZOOM&nbsp;&nbsp;•&nbsp;&nbsp;DRAG TO PAN
+            </p>
+
+        </section>
+
+
+        <!-- ============================= -->
+        <!-- READY -->
+        <!-- ============================= -->
+
+        <button
+            id="ready-button"
+            class="ready-button"
+            type="button"
+        >
+            READY TO RACE
+        </button>
+
+        <p id="players-needed" class="players-needed">WAITING FOR THE RACE SERVER...</p>
+
+
+        <section id="mobile-results" class="mobile-results hidden">
+            <div class="section-heading">
+                <span>FINAL RESULTS</span>
+                <span>🏁</span>
+            </div>
+            <div id="mobile-ranking" class="mobile-ranking"></div>
+            <div id="mobile-own-report" class="mobile-own-report"></div>
+            <button id="mobile-sound" class="mobile-secondary-button" type="button">SOUND ON</button>
+        </section>
+
+
+        <div id="mobile-celebration" class="mobile-celebration hidden">
+            <div class="trophy">🏆</div>
+            <div id="celebration-place">1ST PLACE</div>
+            <div id="celebration-name"></div>
+        </div>
+
+
+        <!-- ============================= -->
+        <!-- CONNECTION -->
+        <!-- ============================= -->
+
+        <p
+            id="connection-status"
+            class="connection-status"
+        >
+            CONNECTING TO RACE SERVER...
+        </p>
+
+    </main>
+
+
+    <!-- ============================= -->
+    <!-- SOCKET.IO -->
+    <!-- ============================= -->
+
+    
+
+    <!-- ============================= -->
+    <!-- MAZE -->
+    <!-- ============================= -->
+
+    <script src="/js/realtime.js"></script>
+<script src="/js/maze/maps.js"></script>
+
+    <script src="/js/maze/generator.js"></script>
+
+    <script src="/js/animation/audio.js"></script>
+
+
+    <!-- ============================= -->
+    <!-- CONTROLLER JS -->
+    <!-- ============================= -->
+
+    <script src="/js/controller.js"></script>
+
+</body>
+
+</html>

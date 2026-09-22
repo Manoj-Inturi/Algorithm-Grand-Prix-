@@ -1,0 +1,1052 @@
+/* ========================================
+   RESET
+======================================== */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+html,
+body {
+    width: 100%;
+    min-height: 100%;
+
+    background: #000000;
+    color: #ffffff;
+
+    font-family:
+        Inter,
+        Arial,
+        sans-serif;
+}
+
+
+body {
+    overflow-x: hidden;
+}
+
+
+/* ========================================
+   MAIN CONTROLLER
+======================================== */
+
+.controller {
+    width: 100%;
+    max-width: 660px;
+
+    margin: 0 auto;
+
+    padding: 32px 22px 50px;
+}
+
+
+/* ========================================
+   HEADER
+======================================== */
+
+.controller-header {
+    padding-bottom: 24px;
+
+    border-bottom: 1px solid #252525;
+}
+
+
+.eyebrow {
+    margin-bottom: 8px;
+
+    color: #777777;
+
+    font-size: 9px;
+
+    letter-spacing: 4px;
+
+    text-transform: uppercase;
+}
+
+
+.controller-header h1 {
+    font-family:
+        "Space Grotesk",
+        Inter,
+        Arial,
+        sans-serif;
+
+    font-size: 34px;
+
+    line-height: 1;
+
+    font-weight: 700;
+
+    letter-spacing: -1.2px;
+}
+
+
+.subtitle {
+    margin-top: 10px;
+
+    color: #777777;
+
+    font-size: 12px;
+
+    letter-spacing: 0.3px;
+}
+
+
+/* ========================================
+   GAME INFO
+======================================== */
+
+.controller-game-info {
+    width: 100%;
+    margin-top: 18px;
+    padding: 14px;
+    background: #050505;
+    border: 1px solid #292929;
+}
+
+.controller-info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 7px;
+}
+
+.controller-info-grid > div {
+    min-width: 0;
+    padding: 8px;
+    background: #090909;
+    border: 1px solid #202020;
+}
+
+.controller-info-grid span {
+    display: block;
+    color: #666;
+    font-size: 7px;
+    letter-spacing: 1.2px;
+}
+
+.controller-info-grid strong {
+    display: block;
+    margin-top: 4px;
+    color: #ddd;
+    font-size: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.controller-connected { margin-top: 10px; }
+
+.controller-players-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.controller-player-row {
+    display: grid;
+    grid-template-columns: 30px minmax(0,1.1fr) minmax(0,.9fr) minmax(0,.9fr);
+    gap: 6px;
+    padding: 5px 4px;
+    border-bottom: 1px solid #171717;
+    font-size: 8px;
+}
+
+.controller-player-row strong,
+.controller-player-row span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.controller-player-row span { color: #777; }
+
+/* ========================================
+   SECTION HEADING
+======================================== */
+
+.section-heading {
+    width: 100%;
+
+    margin-bottom: 12px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    color: #777777;
+
+    font-size: 9px;
+
+    letter-spacing: 3px;
+
+    text-transform: uppercase;
+}
+
+
+/* ========================================
+   ALGORITHM SECTION
+======================================== */
+
+.algorithm-section {
+    margin-top: 25px;
+}
+
+
+/* ========================================
+   ALGORITHM GRID
+======================================== */
+
+.algorithm-grid {
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 10px;
+}
+
+
+/* ========================================
+   ALGORITHM CARD
+======================================== */
+
+.algorithm-card {
+    width: 100%;
+    min-height: 100px;
+
+    padding: 18px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    background: #050505;
+
+    border: 1px solid #292929;
+
+    color: #ffffff;
+
+    font-family:
+        Inter,
+        Arial,
+        sans-serif;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    appearance: none;
+
+    -webkit-appearance: none;
+
+    transition:
+        border-color 0.15s ease,
+        background 0.15s ease,
+        transform 0.1s ease;
+}
+
+
+.algorithm-card:hover {
+    border-color: #555555;
+}
+
+
+.algorithm-card:active {
+    transform: scale(0.99);
+}
+
+
+.algorithm-card.selected {
+    background: #111111;
+
+    border-color: #ffffff;
+}
+
+
+/* ========================================
+   ALGORITHM DOTS
+======================================== */
+
+.algorithm-dot {
+    width: 14px;
+    height: 14px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+}
+
+
+.algorithm-dot.bfs {
+    background: #D32F2F;
+}
+
+
+.algorithm-dot.dfs {
+    background: #1976D2;
+}
+
+
+.algorithm-dot.dijkstra {
+    background: #388E3C;
+}
+
+
+.algorithm-dot.astar {
+    background: #F57C00;
+}
+
+
+/* ========================================
+   ALGORITHM INFO
+======================================== */
+
+.algorithm-info {
+    min-width: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 5px;
+}
+
+
+.algorithm-info strong {
+    display: block;
+
+    color: #ffffff;
+
+    font-family:
+        "Space Grotesk",
+        Inter,
+        Arial,
+        sans-serif;
+
+    font-size: 17px;
+
+    font-weight: 700;
+}
+
+
+.algorithm-info small {
+    display: block;
+
+    color: #666666;
+
+    font-size: 8px;
+
+    line-height: 1;
+
+    letter-spacing: 1px;
+}
+
+
+/* ========================================
+   SELECTED ALGORITHM
+======================================== */
+
+.selected-section {
+    width: 100%;
+
+    margin-top: 12px;
+
+    padding: 17px;
+
+    background: #050505;
+
+    border: 1px solid #292929;
+}
+
+
+.selected-label {
+    color: #666666;
+
+    font-size: 8px;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+}
+
+
+.selected-algorithm {
+    margin-top: 7px;
+
+    color: #ffffff;
+
+    font-family:
+        "Space Grotesk",
+        Inter,
+        Arial,
+        sans-serif;
+
+    font-size: 22px;
+
+    font-weight: 700;
+}
+
+
+/* ========================================
+   HIDDEN
+======================================== */
+
+.hidden {
+    display: none !important;
+}
+
+
+/* ========================================
+   A* CONTROL
+======================================== */
+
+.control-section {
+    width: 100%;
+
+    margin-top: 12px;
+
+    padding: 18px;
+
+    background: #050505;
+
+    border: 1px solid #292929;
+}
+
+
+#heuristic {
+    width: 100%;
+
+    height: 4px;
+
+    margin-top: 5px;
+
+    display: block;
+
+    accent-color: #ffffff;
+
+    cursor: pointer;
+}
+
+
+.range-labels {
+    margin-top: 7px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    color: #555555;
+
+    font-size: 8px;
+}
+
+
+/* ========================================
+   MAZE SECTION
+======================================== */
+
+.maze-section {
+    width: 100%;
+
+    margin-top: 25px;
+}
+
+
+/* ========================================
+   MAZE VIEWPORT
+======================================== */
+
+.maze-viewport {
+    width: 100%;
+
+    height: 480px;
+
+    position: relative;
+
+    overflow: hidden;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #111111;
+
+    border: 1px solid #292929;
+
+    touch-action: none;
+
+    user-select: none;
+
+    -webkit-user-select: none;
+}
+
+
+/* ========================================
+   MAZE CANVAS
+======================================== */
+
+#controller-maze-canvas {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    transform:
+        translate(-50%, -50%)
+        scale(1);
+
+    transform-origin: center center;
+
+    touch-action: none;
+
+    will-change: transform;
+}
+
+
+/* ========================================
+   MAZE MESSAGE
+======================================== */
+
+.maze-message {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    transform:
+        translate(-50%, -50%);
+
+    width: 90%;
+
+    color: #555555;
+
+    font-size: 10px;
+
+    line-height: 1.5;
+
+    letter-spacing: 1px;
+
+    text-align: center;
+
+    pointer-events: none;
+}
+
+
+/* ========================================
+   MAZE TOOLS
+======================================== */
+
+.maze-tools {
+    width: 100%;
+
+    margin-top: 10px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+}
+
+
+.zoom-info {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    color: #666666;
+
+    font-size: 9px;
+
+    letter-spacing: 2px;
+}
+
+
+.zoom-info strong {
+    color: #ffffff;
+
+    font-size: 10px;
+
+    font-weight: 600;
+
+    letter-spacing: 1px;
+}
+
+
+/* ========================================
+   RESET BUTTON
+======================================== */
+
+#reset-view {
+    padding: 9px 13px;
+
+    background: #050505;
+
+    border: 1px solid #333333;
+
+    color: #ffffff;
+
+    font-family:
+        Inter,
+        Arial,
+        sans-serif;
+
+    font-size: 8px;
+
+    letter-spacing: 1.5px;
+
+    cursor: pointer;
+
+    appearance: none;
+
+    -webkit-appearance: none;
+}
+
+
+#reset-view:hover {
+    border-color: #ffffff;
+}
+
+
+/* ========================================
+   MAZE HELP
+======================================== */
+
+.maze-help {
+    margin-top: 9px;
+
+    color: #555555;
+
+    font-size: 8px;
+
+    letter-spacing: 1.5px;
+
+    text-align: center;
+}
+
+
+/* ========================================
+   MAZE LEGEND
+======================================== */
+
+.controller-maze-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px 12px;
+    margin-top: 8px;
+    padding: 8px;
+    background: #050505;
+    border: 1px solid #222;
+}
+
+.controller-maze-legend span {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    color: #777;
+    font-size: 7px;
+    letter-spacing: .8px;
+}
+
+.controller-maze-legend .legend-swatch {
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    border: 1px solid #444;
+}
+.controller-maze-legend .legend-swatch.open { background: #F2E8D5; }
+.controller-maze-legend .legend-swatch.wall { background: #6B4423; }
+.controller-maze-legend .legend-swatch.sand { background: #D8C28A; }
+.controller-maze-legend .legend-swatch.yours { background: #777; }
+
+/* ========================================
+   READY BUTTON
+======================================== */
+
+.ready-button {
+    width: 100%;
+
+    margin-top: 20px;
+
+    padding: 17px;
+
+    display: block;
+
+    background: #ffffff;
+
+    border: none;
+
+    color: #000000;
+
+    font-family:
+        "Space Grotesk",
+        Inter,
+        Arial,
+        sans-serif;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    letter-spacing: 2px;
+
+    cursor: pointer;
+
+    appearance: none;
+
+    -webkit-appearance: none;
+
+    transition:
+        background 0.15s ease;
+}
+
+
+.ready-button:hover {
+    background: #dddddd;
+}
+
+
+.ready-button:disabled {
+    background: #333333;
+
+    color: #777777;
+
+    cursor: default;
+}
+
+
+/* ========================================
+   CONNECTION STATUS
+======================================== */
+
+.connection-status {
+    margin-top: 13px;
+
+    color: #555555;
+
+    font-size: 8px;
+
+    line-height: 1.4;
+
+    letter-spacing: 1.5px;
+
+    text-align: center;
+}
+
+
+/* ========================================
+   MOBILE
+======================================== */
+
+@media (max-width: 600px) {
+
+    .controller {
+        max-width: 100%;
+
+        padding:
+            24px 14px 35px;
+    }
+
+
+    .controller-header {
+        padding-bottom: 20px;
+    }
+
+
+    .controller-header h1 {
+        font-size: 29px;
+
+        letter-spacing: -1px;
+    }
+
+
+    .subtitle {
+        font-size: 11px;
+    }
+
+
+    .algorithm-section,
+    .maze-section {
+        margin-top: 21px;
+    }
+
+
+    .algorithm-grid {
+        gap: 8px;
+    }
+
+
+    .algorithm-card {
+        min-height: 88px;
+
+        padding: 14px;
+
+        gap: 10px;
+    }
+
+
+    .algorithm-dot {
+        width: 12px;
+        height: 12px;
+    }
+
+
+    .algorithm-info strong {
+        font-size: 15px;
+    }
+
+
+    .algorithm-info small {
+        font-size: 7px;
+
+        letter-spacing: 0.7px;
+    }
+
+
+    .selected-section {
+        padding: 15px;
+    }
+
+
+    .selected-algorithm {
+        font-size: 20px;
+    }
+
+
+    .maze-viewport {
+        height: 78vw;
+
+        min-height: 280px;
+
+        max-height: 480px;
+    }
+
+
+    .maze-help {
+        font-size: 7px;
+    }
+
+}
+
+
+/* ========================================
+   VERY SMALL PHONES
+======================================== */
+
+@media (max-width: 380px) {
+
+    .controller {
+        padding-left: 11px;
+        padding-right: 11px;
+    }
+
+
+    .controller-header h1 {
+        font-size: 26px;
+    }
+
+
+    .algorithm-card {
+        padding: 12px;
+    }
+
+
+    .algorithm-info strong {
+        font-size: 14px;
+    }
+
+
+    .algorithm-info small {
+        font-size: 6px;
+    }
+
+}
+.algorithm-card:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+.ready-button:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+}
+
+.game-full {
+    min-height: 100vh;
+    padding: 30px;
+    display: grid;
+    place-content: center;
+    text-align: center;
+    background: #000;
+    color: #fff;
+    font-family: Inter, Arial, sans-serif;
+}
+
+.game-full p {
+    color: #777;
+    font-size: 10px;
+    letter-spacing: 4px;
+}
+
+.game-full h1 {
+    margin: 10px 0;
+}
+
+.game-full span {
+    color: #777;
+}
+
+
+.name-section {
+    margin-top: 25px;
+    padding: 17px;
+    background: #050505;
+    border: 1px solid #292929;
+}
+
+.name-row {
+    display: flex;
+    gap: 8px;
+}
+
+#player-name {
+    flex: 1;
+    min-width: 0;
+    padding: 13px 14px;
+    background: #000;
+    border: 1px solid #333;
+    color: #fff;
+    outline: none;
+}
+
+#player-name:focus {
+    border-color: #777;
+}
+
+#save-name {
+    padding: 0 16px;
+    background: #fff;
+    border: 0;
+    color: #000;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+#save-name:disabled {
+    background: #333;
+    color: #777;
+}
+
+.name-message {
+    margin-top: 8px;
+    color: #555;
+    font-size: 8px;
+    letter-spacing: 1px;
+}
+
+.name-message.error {
+    color: #D32F2F;
+}
+
+.name-message.success {
+    color: #388E3C;
+}
+
+@media (max-width: 420px) {
+    .name-row {
+        flex-direction: column;
+    }
+
+    #save-name {
+        min-height: 44px;
+    }
+}
+
+.prediction-section {
+    margin-top: 25px;
+}
+
+.prediction-message {
+    margin-bottom: 10px;
+    color: #777;
+    font-size: 10px;
+}
+
+.prediction-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+}
+
+.prediction-button {
+    min-height: 44px;
+    background: #050505;
+    border: 1px solid #292929;
+    color: #fff;
+    cursor: pointer;
+    font-size: 9px;
+    letter-spacing: 1px;
+}
+
+.prediction-button:hover { border-color: #666; }
+.prediction-button.selected { border-color: #fff; background: #151515; }
+.prediction-button:disabled { opacity: 0.4; cursor: default; }
+
+.algorithm-hint {
+    margin-top: 8px;
+    color: #777;
+    font-size: 10px;
+    line-height: 1.5;
+}
+
+@media (max-width: 520px) {
+    .prediction-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* careful upgrade */
+.mobile-results{margin-top:14px;padding:17px;background:#050505;border:1px solid #292929}
+.mobile-ranking{display:grid;gap:7px}
+.mobile-rank-row{display:grid;grid-template-columns:48px 1fr auto;align-items:center;gap:10px;padding:11px;border:1px solid #242424;background:#080808}
+.mobile-rank-row .place{font:700 20px "Space Grotesk",Arial,sans-serif}
+.mobile-rank-row .rank-name{font:700 13px "Space Grotesk",Arial,sans-serif}
+.mobile-rank-row .rank-algo{display:block;margin-top:3px;color:#777;font-size:8px;letter-spacing:1px}
+.mobile-rank-row .rank-time{color:#aaa;font-size:9px}
+.mobile-own-report{margin-top:10px;padding:14px;border:1px solid #333;background:#080808}
+.mobile-report-title{font:700 16px "Space Grotesk",Arial,sans-serif}
+.mobile-report-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:10px}
+.mobile-report-stat{padding:9px;border:1px solid #222}
+.mobile-report-stat span{display:block;color:#666;font-size:7px;letter-spacing:1px}
+.mobile-report-stat strong{display:block;margin-top:3px;font-size:13px}
+.mobile-report-note{margin-top:10px;color:#bbb;font-size:9px;line-height:1.5}
+.mobile-secondary-button{width:100%;margin-top:9px;background:#050505;border:1px solid #333;color:#fff;padding:11px}
+.mobile-celebration{position:fixed;inset:0;z-index:80;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:rgba(0,0,0,.94);animation:gpFadeIn .25s ease-out}
+.mobile-celebration .trophy{font-size:min(34vw,180px);line-height:1;animation:gpTrophy 1.6s ease-in-out infinite}
+#celebration-place{margin-top:18px;font:700 clamp(28px,8vw,58px) "Space Grotesk",Arial,sans-serif;letter-spacing:2px}
+#celebration-name{margin-top:8px;color:#aaa;font-size:12px;letter-spacing:2px}
+@keyframes gpTrophy{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-8px) scale(1.04)}}
+@keyframes gpFadeIn{from{opacity:0}to{opacity:1}}
+@media(max-width:480px){.controller{padding:22px 14px 40px}.mobile-rank-row{grid-template-columns:42px 1fr auto}.mobile-report-grid{grid-template-columns:1fr 1fr}}
+
+.players-needed { margin-top:9px; min-height:18px; color:#D32F2F; font-size:10px; line-height:1.45; letter-spacing:1px; text-align:center; }
+.ready-button:disabled { opacity:.45; cursor:default; }
+
+

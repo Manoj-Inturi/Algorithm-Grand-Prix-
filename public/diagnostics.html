@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<meta name="description" content="Technical connection diagnostics for the Algorithm Grand Prix shared multiplayer state service.">
+<title>Algorithm Grand Prix Diagnostics</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#000;color:#fff;font-family:Arial,sans-serif;padding:20px}.wrap{max-width:900px;margin:auto}h1{font-size:24px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.box{border:1px solid #292929;background:#070707;padding:14px}.label{color:#777;font-size:10px;letter-spacing:1.5px}.value{margin-top:7px;font-size:15px;word-break:break-word}.ok{color:#3bd47a}.bad{color:#ef4056}pre{white-space:pre-wrap;background:#050505;border:1px solid #222;padding:10px;max-height:420px;overflow:auto;font-size:11px;line-height:1.5}@media(max-width:650px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>ALGORITHM GRAND PRIX — CONNECTION DIAGNOSTICS</h1>
+<div class="grid">
+<div class="box"><div class="label">PAGE</div><div id="page" class="value"></div></div>
+<div class="box"><div class="label">HTTP API</div><div id="http" class="value">CHECKING...</div></div>
+<div class="box"><div class="label">REALTIME MODE</div><div id="mode" class="value">—</div></div>
+<div class="box"><div class="label">ROUND / PLAYERS</div><div id="state" class="value">—</div></div>
+<div class="box"><div class="label">JOIN URL</div><div id="join" class="value">—</div></div>
+<div class="box"><div class="label">LOCAL NETWORK URLS</div><pre id="urls">—</pre></div>
+</div>
+<div class="box" style="margin-top:10px"><div class="label">DIAGNOSTIC LOG</div><pre id="logs"></pre></div>
+</div>
+<script>
+const page=document.getElementById('page');
+const http=document.getElementById('http');
+const mode=document.getElementById('mode');
+const state=document.getElementById('state');
+const join=document.getElementById('join');
+const urls=document.getElementById('urls');
+const logs=document.getElementById('logs');
+page.textContent=location.href;
+function addLog(text){logs.textContent+=text+'\n';logs.scrollTop=logs.scrollHeight}
+fetch('/api/health',{cache:'no-store'})
+ .then(async r=>{const d=await r.json();if(!r.ok)throw new Error(d.message||`HTTP ${r.status}`);return d})
+ .then(d=>{http.textContent='OK';http.className='value ok';mode.textContent=d.realtime+(d.sharedState?' • SHARED STATE ON':' • LOCAL STATE');state.textContent=`ROUND ${d.round} • ${d.players}/4 PLAYERS • ${d.raceState} • ${d.size}×${d.size}`;join.textContent=d.joinUrl||'—';urls.textContent=(d.addresses||[]).map(x=>`http://${x}:${d.port}/controller`).join('\n')||'No local network URLs on this host';addLog('[HTTP] health OK')})
+ .catch(e=>{http.textContent='ERROR: '+e.message;http.className='value bad';addLog('[HTTP ERROR] '+e.message)})
+fetch('/api/state',{cache:'no-store'}).then(r=>r.json()).then(d=>addLog(`[STATE] round=${d.round} race=${d.raceState} players=${d.players?.length||0}`)).catch(e=>addLog('[STATE ERROR] '+e.message));
+</script>
+</body>
+</html>

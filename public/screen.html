@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex,nofollow">
+    <meta name="description" content="Live Algorithm Grand Prix projector screen for four-player BFS, DFS, Dijkstra and A* pathfinding races.">
+    <title>Algorithm Grand Prix | Live Race Screen</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap">
+    <link rel="stylesheet" href="/css/screen.css">
+</head>
+<body>
+<main class="screen">
+    <header class="top-bar">
+        <div>
+            <p class="eyebrow">LIVE PATHFINDING LAB</p>
+            <h1>ALGORITHM GRAND PRIX</h1>
+            <p>FOUR PLAYERS • ONE MAZE • FOUR SEARCH STRATEGIES</p>
+        </div>
+        <div class="round-block">
+            <span>ROUND</span>
+            <strong id="round-number">01</strong>
+        </div>
+    </header>
+
+    <section class="race-head">
+        <div>
+            <strong id="race-status">WAITING FOR 4 PLAYERS</strong>
+            <span id="round-focus">WATCH HOW THE ALGORITHMS THINK</span>
+        </div>
+        <div class="race-head-tools">
+            <div class="race-controls">
+                <button id="speed-button" type="button">SPEED 1×</button>
+                <button id="pause-button" type="button">PAUSE</button>
+                <button id="step-button" type="button">STEP</button>
+                <button id="learn-button" type="button">LEARN ON</button>
+                <button id="report-button" type="button">REPORT</button>
+                <button id="replay-button" type="button">REPLAY</button>
+                <span class="maze-size">71 × 71</span>
+            </div>
+            <div class="display-filter" aria-label="Choose which algorithms are visible on the maze">
+                <div class="display-filter-title">SHOW ON MAZE <span id="display-filter-count">4 / 4</span></div>
+                <label class="filter-check bfs"><input type="checkbox" data-maze-filter="BFS" checked><span>BFS</span></label>
+                <label class="filter-check dfs"><input type="checkbox" data-maze-filter="DFS" checked><span>DFS</span></label>
+                <label class="filter-check dijkstra"><input type="checkbox" data-maze-filter="DIJKSTRA" checked><span>DIJKSTRA</span></label>
+                <label class="filter-check astar"><input type="checkbox" data-maze-filter="A*" checked><span>A*</span></label>
+                <button id="show-all-algorithms" class="filter-action" type="button">ALL</button>
+                <button id="hide-all-algorithms" class="filter-action" type="button">CLEAR</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="main-grid">
+        <aside class="left-panel">
+            <section class="telemetry-card support-card">
+                <div class="panel-label">RACE TELEMETRY</div>
+                <div class="telemetry-grid">
+                    <div><span>TIME</span><strong id="telemetry-time">00:00.00</strong></div>
+                    <div><span>CONNECTED</span><strong id="telemetry-connected">0 / 4</strong></div>
+                    <div><span>READY</span><strong id="telemetry-ready">0 / 4</strong></div>
+                    <div><span>ACTIVE ALGORITHMS</span><strong id="telemetry-algorithms">—</strong></div>
+                </div>
+            </section>
+
+
+
+            <section class="player-stack">
+                <div class="panel-label">PLAYERS / LOBBY</div>
+                <article class="player-card" data-player-card="1">
+                    <span class="player-dot"></span>
+                    <div class="player-copy"><h2>PLAYER 1</h2><p>WAITING</p></div>
+                </article>
+                <article class="player-card" data-player-card="2">
+                    <span class="player-dot"></span>
+                    <div class="player-copy"><h2>PLAYER 2</h2><p>WAITING</p></div>
+                </article>
+                <article class="player-card" data-player-card="3">
+                    <span class="player-dot"></span>
+                    <div class="player-copy"><h2>PLAYER 3</h2><p>WAITING</p></div>
+                </article>
+                <article class="player-card" data-player-card="4">
+                    <span class="player-dot"></span>
+                    <div class="player-copy"><h2>PLAYER 4</h2><p>WAITING</p></div>
+                </article>
+                <div class="player-actions">
+                    <button id="fill-bots-button" type="button">FILL LOBBY WITH BOTS</button>
+                    <span id="players-needed" class="players-needed-screen">4 MORE PLAYERS NEEDED TO START</span>
+                </div>
+                <div class="algorithm-activity-card" aria-label="Live algorithm activity">
+                    <div class="panel-label">ALGORITHM ACTIVITY</div>
+                    <div id="algorithm-activity" class="algorithm-activity-list"></div>
+                    <div id="activity-caption" class="activity-caption">Waiting for a race.</div>
+                </div>
+            </section>
+        </aside>
+
+        <div class="maze-container">
+            <canvas id="maze-canvas"></canvas>
+            <div id="countdown" class="countdown" aria-live="assertive"></div>
+            <div id="maze-tooltip" class="maze-tooltip" role="tooltip"></div>
+            <div class="maze-legend" aria-label="Maze legend">
+                <span><i class="legend-swatch open"></i>OPEN</span>
+                <span><i class="legend-swatch wall"></i>WALL</span>
+                <span><i class="legend-swatch bfs"></i>BFS</span>
+                <span><i class="legend-swatch dfs"></i>DFS</span>
+                <span><i class="legend-swatch dijkstra"></i>DIJKSTRA</span>
+                <span><i class="legend-swatch astar"></i>A*</span>
+            </div>
+        </div>
+
+        <aside class="right-panel">
+            <section id="learning-panel" class="learning-panel">
+                <div class="panel-label">LIVE THINKING</div>
+                <div class="learning-selector" id="learning-selector">
+                    <button type="button" data-learn-algorithm="BFS">BFS</button>
+                    <button type="button" data-learn-algorithm="DFS">DFS</button>
+                    <button type="button" data-learn-algorithm="DIJKSTRA">DIJKSTRA</button>
+                    <button type="button" data-learn-algorithm="A*">A*</button>
+                </div>
+                <div class="learning-demo-controls">
+                    <button id="learning-demo-play" type="button">PLAY</button>
+                    <button id="learning-demo-step" type="button">STEP</button>
+                    <button id="learning-demo-reset" type="button">RESET</button>
+                </div>
+                <h2 id="learning-title">WAITING</h2>
+                <p id="learning-personality" class="learning-personality">THE RACE WILL EXPLAIN ITSELF</p>
+                <p id="learning-live" class="learning-live">When the race starts, this panel explains why the selected algorithm is exploring its current cell.</p>
+                <div id="decision-box" class="decision-box">
+                    <span>DECISION</span>
+                    <strong id="decision-text">—</strong>
+                </div>
+                <div class="structure-box">
+                    <div class="structure-head"><span id="structure-name">DATA STRUCTURE</span><span id="structure-count">0</span></div>
+                    <div id="structure-list" class="structure-list"><span>Waiting for the race.</span></div>
+                </div>
+                <div class="calculation-box">
+                    <div class="structure-head"><span>CALCULATION HISTORY</span><span id="calculation-count">0</span></div>
+                    <div id="calculation-history" class="calculation-history"><span>Waiting for the first decision.</span></div>
+                </div>
+                <div class="search-stats-box">
+                    <div class="structure-head"><span>SEARCH STATS</span><span id="search-stats-status">—</span></div>
+                    <div id="search-stats" class="search-stats-grid"></div>
+                </div>
+            </section>
+        </aside>
+    </section>
+
+    <section class="lower-section" aria-label="Race analysis">
+        <article class="support-card">
+            <div class="panel-label">ALGORITHM BATTLE</div>
+            <div id="battle-list" class="battle-list"><span class="support-muted">Waiting for players.</span></div>
+        </article>
+
+        <article class="support-card">
+            <div class="panel-label">ROUND INTEL</div>
+            <p id="round-intel" class="round-intel">Scan the QR code to join. Every NEW ROUND removes the previous player sessions; everyone must scan again.</p>
+        </article>
+
+        <article class="support-card">
+            <div class="panel-label">LIVE EVENT LOG</div>
+            <div class="event-box event-box-lower">
+                <div class="structure-head"><span>RECENT EVENTS</span><span id="event-count">0</span></div>
+                <div id="event-log" class="event-log"></div>
+            </div>
+        </article>
+    </section>
+
+    <section id="race-results" class="race-results"></section>
+
+    <div id="report-card-modal" class="report-card-modal hidden">
+        <div class="report-card-panel">
+            <button id="report-card-close" class="report-card-close" type="button">×</button>
+            <div class="panel-label">REPORT CARD</div>
+            <div id="report-tabs" class="report-tabs">
+                <button type="button" data-report-algorithm="BFS">BFS</button>
+                <button type="button" data-report-algorithm="DFS">DFS</button>
+                <button type="button" data-report-algorithm="DIJKSTRA">DIJKSTRA</button>
+                <button type="button" data-report-algorithm="A*">A*</button>
+            </div>
+            <div id="report-card-body"></div>
+        </div>
+    </div>
+
+    <div id="qr-modal" class="qr-modal hidden">
+        <div class="qr-modal-panel">
+            <button id="qr-modal-close" class="qr-modal-close" type="button">×</button>
+            <img id="qr-large" alt="Large join QR code">
+            <strong>SCAN TO JOIN</strong>
+            <span id="qr-modal-url"></span>
+        </div>
+    </div>
+
+    <footer class="bottom-bar">
+        <div class="join-block">
+            <strong>SCAN TO JOIN</strong>
+            <span>4 PLAYERS MAX • NAMES + ALGORITHMS</span>
+            <small id="join-url"></small>
+        </div>
+        <div class="footer-actions">
+            <button id="new-round" type="button">NEW ROUND</button>
+            <div class="qr-box" role="button" tabindex="0" aria-label="Open large join QR code">
+                <img id="join-qr" alt="Join QR code">
+            </div>
+        </div>
+    </footer>
+</main>
+
+<script src="/js/realtime.js"></script>
+<script src="/js/maze/maps.js"></script>
+<script src="/js/maze/generator.js"></script>
+<script src="/js/algorithms/path-utils.js"></script>
+<script src="/js/algorithms/priority-queue.js"></script>
+<script src="/js/algorithms/bfs.js"></script>
+<script src="/js/algorithms/dfs.js"></script>
+<script src="/js/algorithms/dijkstra.js"></script>
+<script src="/js/algorithms/astar.js"></script>
+<script src="/js/animation/learning.js"></script>
+<script src="/js/animation/audio.js"></script>
+<script src="/js/screen.js"></script>
+</body>
+</html>
